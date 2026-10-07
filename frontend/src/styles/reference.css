@@ -1,0 +1,298 @@
+/* ============================================================
+   REFERENCE DESIGN SYSTEM
+   Tailwind CSS v4 entry point for the new UI (Home.jsx and
+   anything else authored against the reference design).
+
+   Cascade contract
+   ----------------
+   main.jsx imports this file FIRST so that the layer order below
+   is established before any other stylesheet is parsed.
+
+     theme     -> design tokens (:root variables)
+     base      -> Tailwind preflight
+     legacy    -> src/styles/global.css (existing pages)
+     components-> design-system component classes
+     utilities -> Tailwind utilities (bg-primary, text-foreground…)
+
+   The existing custom CSS is parked in `legacy`, which sits ABOVE
+   preflight (so `.btn`, `.hero`, `h1 { font-size }` etc. keep
+   working exactly as before) but BELOW utilities (so a Tailwind
+   class on an element always wins over legacy element styling).
+   ============================================================ */
+
+@layer theme, base, legacy, components, utilities;
+
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ============================================================
+   THEME TOKENS
+   NOTE: --color-primary and --color-border intentionally mirror
+   the values in styles/tokens.css. Both files define them on
+   :root, and an unlayered :root wins over this @theme block, so
+   they have to stay in sync or the two systems will drift.
+   ============================================================ */
+
+@theme {
+  /* ---- Surfaces ---- */
+  --color-background: #ffffff;
+  --color-foreground: #0b1220;
+  --color-card: #ffffff;
+  --color-card-foreground: #0b1220;
+
+  /* ---- Brand ---- */
+  --color-primary: #2563eb;
+  --color-primary-foreground: #ffffff;
+  --color-surface-strong: #1d4ed8;
+
+  /* ---- Tints ---- */
+  --color-secondary: #eff6ff;
+  --color-secondary-foreground: #0b1220;
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #64748b;
+
+  /* ---- Lines ---- */
+  --color-border: #e2e8f0;
+  --color-input: #e2e8f0;
+  --color-ring: #2563eb;
+
+  /* ---- Dark bands (CTA + footer) ---- */
+  --color-hero: #0b1220;
+  --color-hero-foreground: #f8fafc;
+
+  /* ---- Accent used for ratings / badges ---- */
+  --color-highlight: #f59e0b;
+
+  /* ---- Typography ---- */
+  --font-sans:
+    Inter, "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --font-display:
+    "Plus Jakarta Sans", Inter, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* ---- Radii ---- */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+/* ============================================================
+   COMPONENT CLASSES
+   The handful of non-utility classes Home.jsx relies on.
+   ============================================================ */
+
+@layer components {
+  /* ---- Entrance animation ------------------------------------ */
+
+  .reveal-up {
+    animation: reveal-up 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes reveal-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ---- Hero image frame ------------------------------------- */
+
+  .hero-frame::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    box-shadow:
+      inset 0 0 0 1px rgb(255 255 255 / 0.22),
+      inset 0 -60px 80px -40px rgb(11 18 32 / 0.45);
+  }
+
+  .hero-frame::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      transparent 45%,
+      rgb(37 99 235 / 0.18) 100%
+    );
+  }
+
+  /* ---- Hero rover video + laser text activation ------------- */
+
+  .hero-video {
+    display: block;
+    background: var(--color-secondary);
+  }
+
+  /* Inactive state is plain primary blue. Activation slides a lighter
+     highlight band across the words left to right (laser-sweep feel), then
+     builds a soft blue glow behind the glyphs. Both filter lists keep the
+     same number of drop-shadow() steps so the glow actually interpolates. */
+
+  .hero-laser-text {
+    color: var(--color-primary);
+    background-image: linear-gradient(
+      90deg,
+      var(--color-primary) 0%,
+      var(--color-primary) 40%,
+      rgb(147 197 253 / 0.95) 50%,
+      var(--color-primary) 60%,
+      var(--color-primary) 100%
+    );
+    background-size: 300% 100%;
+    background-position: 0% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter:
+      drop-shadow(0 0 0 rgb(37 99 235 / 0))
+      drop-shadow(0 0 0 rgb(37 99 235 / 0));
+    transition:
+      background-position 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 1000ms cubic-bezier(0.22, 1, 0.36, 1) 240ms;
+  }
+
+  .hero-laser-text.is-active {
+    background-position: 100% 0;
+    filter:
+      drop-shadow(0 0 8px rgb(37 99 235 / 0.32))
+      drop-shadow(0 0 22px rgb(37 99 235 / 0.16));
+  }
+
+  @supports not (background-clip: text) {
+    .hero-laser-text {
+      background-image: none;
+      -webkit-text-fill-color: currentColor;
+    }
+  }
+
+  /* ---- Project card shine sweep ----------------------------- */
+
+  .card-shine > div {
+    z-index: 1;
+  }
+
+  .card-shine > span {
+    z-index: 2;
+  }
+
+  .card-shine::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    left: -70%;
+    width: 55%;
+    pointer-events: none;
+    background: linear-gradient(
+      100deg,
+      transparent,
+      rgb(255 255 255 / 0.4),
+      transparent
+    );
+    transform: skewX(-18deg);
+    opacity: 0;
+  }
+
+  .card-shine:hover::after {
+    opacity: 1;
+    animation: card-shine 900ms ease-out forwards;
+  }
+
+  @keyframes card-shine {
+    to {
+      left: 115%;
+    }
+  }
+
+  /* ---- Blueprint grid behind the CTA band ------------------- */
+
+  .technical-grid::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.08) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(
+      ellipse at 50% 0%,
+      #000 10%,
+      transparent 72%
+    );
+    mask-image: radial-gradient(ellipse at 50% 0%, #000 10%, transparent 72%);
+  }
+
+  /* ---- Connector rail between the four journey steps -------- */
+
+  .journey-step {
+    position: relative;
+  }
+
+  .journey-step::before {
+    content: "";
+    position: absolute;
+    top: 2.5rem;
+    left: 100%;
+    width: 1.25rem;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      rgb(37 99 235 / 0.45),
+      rgb(37 99 235 / 0.08)
+    );
+  }
+
+  .journey-step:last-child::before {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .journey-step::before {
+      display: none;
+    }
+  }
+
+  /* ---- Accessible focus ring for utility-only buttons -------- */
+
+  :where(a, button, input):focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
+/* ============================================================
+   MOTION PREFERENCES
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up,
+  .card-shine::after,
+  .card-shine:hover::after {
+    animation: none !important;
+  }
+
+  .card-shine::after,
+  .card-shine:hover::after {
+    display: none;
+  }
+
+  .hero-laser-text {
+    transition: none !important;
+  }
+}

@@ -1,0 +1,88 @@
+.student-page { min-height: 100vh; background: var(--bg); }
+.student-page .student-dashboard { padding-top: 40px; padding-bottom: 72px; }
+.student-page .student-dashboard__hero { margin-bottom: 28px; }
+.student-page .student-dashboard__eyebrow { display: inline-block; margin-bottom: 10px; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); }
+.student-page .student-dashboard__hero h1 { margin: 0 0 8px; font-size: clamp(1.75rem, 3.6vw, 2.5rem); line-height: 1.15; letter-spacing: -0.03em; }
+.student-page .student-dashboard__hero p { max-width: 560px; margin: 0; font-size: 17px; color: var(--text-muted); }
+.student-page .student-state { margin-bottom: 16px; padding: 12px 16px; font-size: 14px; color: var(--info); background: var(--info-soft); border: 1px solid #bfdbfe; border-radius: var(--radius-sm); }
+.student-page .student-state--error { color: var(--danger-dark); background: var(--danger-soft); border-color: #fecaca; }
+.student-page .student-back-link { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 20px; font-size: 14px; font-weight: 500; color: var(--text-muted); text-decoration: none; }
+.student-page .student-back-link:hover { color: var(--primary); }
+
+/* Dashboard cards */
+.student-page .student-project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+.student-page .student-project-card { display: flex; flex-direction: column; overflow: hidden; background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-sm); transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease); }
+.student-page .student-project-card:hover { transform: translateY(-3px); border-color: var(--border-hover); box-shadow: var(--shadow-md); }
+.student-page .student-project-card__content { display: flex; flex: 1; flex-direction: column; gap: 14px; padding: 24px; }
+.student-page .student-project-card__category { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); }
+.student-page .student-project-card h3 { margin: 0; font-size: 1.1875rem; line-height: 1.3; }
+.student-page .student-project-card__content > p { display: -webkit-box; margin: 0; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-size: 14px; color: var(--text-muted); }
+.student-page .student-project-card__progress { display: grid; gap: 8px; margin-top: auto; }
+.student-page .student-project-card__progress-header { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-muted); }
+.student-page .student-project-card__progress-header strong { color: var(--text); }
+.student-page .student-project-card__progress-track { height: 8px; overflow: hidden; background: var(--locked-soft); border-radius: 999px; }
+.student-page .student-project-card__progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #3b82f6); border-radius: inherit; transition: width .6s var(--ease); }
+.student-page .student-project-card__complete { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #166534; }
+.student-page .student-project-card__stages { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.student-page .student-project-card__stages .admin-stage-pill { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; font-size: 12px; font-weight: 600; border-radius: 999px; border: 1px solid var(--border); }
+.student-page .student-project-card__stages .admin-stage-pill.is-on { color: #166534; background: var(--success-soft); border-color: #bbf7d0; }
+.student-page .student-project-card__stages .admin-stage-pill.is-off { color: var(--locked); background: var(--locked-soft); }
+.student-page .student-project-card__stages-text { flex-basis: 100%; font-size: 12px; color: var(--text-muted); }
+.student-page .student-project-card__action { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; font-weight: 600; color: var(--primary);
+  background: var(--primary-soft); border-top: 1px solid var(--border); text-decoration: none; transition: background .2s, color .2s; }
+.student-page .student-project-card__action:hover { color: #fff; background: var(--primary); }
+
+/* My project */
+.student-page .student-project-hero { display: grid; justify-items: start; gap: 12px; margin-bottom: 32px; padding: 32px; background: linear-gradient(135deg, #eff6ff, var(--surface));
+  border: 1px solid var(--border-hover); border-radius: var(--radius-lg); }
+.student-page .student-project-hero h1 { margin: 0; font-size: clamp(1.6rem, 3.4vw, 2.25rem); line-height: 1.15; letter-spacing: -0.03em; }
+.student-page .student-project-hero p { max-width: 720px; margin: 0; color: var(--text-muted); }
+.student-page .student-section { margin-bottom: 40px; }
+.student-page .student-section h2 { margin: 0 0 16px; font-size: 1.375rem; letter-spacing: -0.02em; }
+.student-page .student-resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.student-page .student-stage-card { display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--surface); border: 1px solid var(--border);
+  border-left: 4px solid var(--success); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+.student-page .student-stage-card.is-locked { background: #fbfcfe; border-left-color: #cbd5e1; border-left-style: dashed; }
+.student-page .student-stage-card__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.student-page .student-stage-card__label { display: block; margin-bottom: 2px; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
+.student-page .student-stage-card h3 { margin: 0; font-size: 1.0625rem; }
+.student-page .student-stage-card__locked-note { margin: 0; font-size: 13px; color: var(--text-muted); }
+.student-page .student-stage-card__resources { display: grid; gap: 12px; }
+.student-page .student-iot-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 20px; font-weight: 600; color: var(--primary);
+  background: var(--surface); border: 1px solid var(--border-hover); border-radius: var(--radius-sm); text-decoration: none; }
+.student-page .student-iot-link:hover { background: var(--primary-soft); }
+
+@media (max-width: 640px) {
+  .student-page .student-dashboard { padding-top: 24px; padding-bottom: 48px; }
+  .student-page .student-project-grid, .student-page .student-resource-grid { grid-template-columns: 1fr; }
+  .student-page .student-project-hero { padding: 22px; }
+}
+
+.student-page .stage-stepper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); }
+.student-page .stage-stepper__item { position: relative; display: flex; flex-direction: column; gap: 10px; }
+.student-page .stage-stepper__item:not(:last-child)::after { content: ""; position: absolute; top: 17px; left: 46px; right: -12px; height: 2px; background: var(--border); }
+.student-page .stage-stepper__item.is-unlocked:not(:last-child)::after { background: var(--success); }
+.student-page .stage-stepper__marker { position: relative; z-index: 1; display: grid; place-items: center; width: 36px; height: 36px; font-size: 13px; font-weight: 700;
+  color: var(--locked); background: var(--locked-soft); border: 2px dashed #cbd5e1; border-radius: 50%; }
+.student-page .stage-stepper__item.is-unlocked .stage-stepper__marker { color: var(--success); background: var(--success-soft); border: 2px solid var(--success); }
+.student-page .stage-stepper__item.is-completed .stage-stepper__marker { color: #fff; background: var(--success); }
+.student-page .stage-stepper__item.is-current .stage-stepper__marker { color: #fff; background: var(--primary); border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-ring); }
+.student-page .stage-stepper__content strong { display: block; font-size: 14px; }
+.student-page .stage-stepper__content span { font-size: 12px; color: var(--text-muted); }
+
+.student-page .student-resource-card { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.student-page .student-resource-card.is-locked { background: var(--locked-soft); border-style: dashed; }
+.student-page .student-resource-card__icon { display: grid; place-items: center; flex-shrink: 0; width: 36px; height: 36px; color: var(--primary); background: var(--primary-soft); border-radius: 9px; }
+.student-page .student-resource-card.is-locked .student-resource-card__icon { color: var(--locked); background: #fff; }
+.student-page .student-resource-card__content { flex: 1; min-width: 0; }
+.student-page .student-resource-card h4 { margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
+.student-page .student-resource-card__status { font-size: 12px; color: var(--text-muted); }
+
+@media (max-width: 640px) {
+  .student-page .stage-stepper { grid-template-columns: 1fr; gap: 20px; padding: 18px; }
+  .student-page .stage-stepper__item { flex-direction: row; align-items: center; gap: 14px; }
+  .student-page .stage-stepper__item:not(:last-child)::after { top: 42px; bottom: -20px; left: 17px; right: auto; width: 2px; height: auto; }
+  .student-page .student-resource-card { flex-wrap: wrap; }
+  .student-page .student-resource-card__action { width: 100%; }
+}

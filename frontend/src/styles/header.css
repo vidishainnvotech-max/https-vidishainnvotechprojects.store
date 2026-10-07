@@ -1,0 +1,61 @@
+.vh { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(255,255,255,.92);
+  backdrop-filter: saturate(180%) blur(10px); border-bottom: 1px solid var(--border); }
+body:has(.vh) { padding-top: 68px; }
+html { scroll-padding-top: 76px; }
+.vh--admin { border-bottom-color: #c7d2fe; }
+.vh__bar { display: flex; align-items: center; gap: 24px; max-width: var(--container);
+  margin: 0 auto; padding: 0 24px; min-height: 68px; }
+.vh-brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none;
+  font-weight: 700; font-size: 17px; letter-spacing: -.01em; }
+.vh-brand__icon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px;
+  color: #fff; background: linear-gradient(135deg, #1d4ed8, #3b82f6); }
+.vh-brand__text span { color: var(--primary); }
+.vh-badge { padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .08em; color: var(--primary); background: var(--primary-soft);
+  border: 1px solid var(--border-hover); }
+.vh--admin .vh-badge { color: #3730a3; background: #eef2ff; border-color: #c7d2fe; }
+.vh__nav { display: flex; gap: 4px; margin-left: 16px; }
+.vh-link { padding: 8px 12px; border-radius: var(--radius-sm); color: var(--text-muted);
+  font-size: 15px; font-weight: 500; text-decoration: none; transition: color .15s, background .15s; }
+.vh-link:hover { color: var(--text); background: var(--locked-soft); }
+.vh-link.is-active { color: var(--primary); background: var(--primary-soft); font-weight: 600; }
+.vh__actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.vh-user { max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-size: 14px; font-weight: 500; color: var(--text); }
+.vh-menu { display: none; margin-left: auto; width: 40px; height: 40px; place-items: center;
+  color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.vh-mobile { display: none; }
+
+@media (max-width: 860px) {
+  body:has(.vh) { padding-top: 60px; }
+  .vh__nav, .vh__actions { display: none; }
+  .vh-menu { display: grid; }
+  .vh__bar { min-height: 60px; padding: 0 16px; }
+  .vh-mobile { display: grid; gap: 4px; padding: 8px 16px 16px; border-top: 1px solid var(--border); background: var(--surface); }
+  .vh-mobile .vh-link { padding: 12px; font-size: 16px; }
+  .vh-mobile__actions { display: grid; gap: 8px; margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .vh-mobile__actions .btn { width: 100%; min-height: 44px; }
+  .vh-user { max-width: none; padding: 4px 12px; }
+}
+
+/* Footer */
+.vf { margin-top: 80px; color: #cbd5e1; background: #0b1b3a; }
+.vf__inner { max-width: var(--container); margin: 0 auto; padding: 56px 24px 24px; }
+.vf__top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255,255,255,.1); }
+.vf__brand { display: inline-flex; align-items: center; gap: 10px; color: #fff; font-weight: 700; font-size: 18px; text-decoration: none; }
+.vf__brand span { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px;
+  background: linear-gradient(135deg, #1d4ed8, #3b82f6); }
+.vf__about p { max-width: 380px; margin: 16px 0 0; color: #94a3b8; font-size: 15px; line-height: 1.7; }
+.vf__col { display: grid; align-content: start; gap: 10px; }
+.vf__col h2 { margin: 0 0 6px; color: #fff; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+.vf__col a { color: #94a3b8; font-size: 15px; text-decoration: none; transition: color .15s; }
+.vf__col a:hover { color: #fff; }
+.vf__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding-top: 20px;
+  color: #64748b; font-size: 13px; }
+@media (max-width: 760px) {
+  .vf { margin-top: 56px; }
+  .vf__top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .vf__about { grid-column: 1 / -1; }
+  .vf__bottom { flex-direction: column; }
+}
