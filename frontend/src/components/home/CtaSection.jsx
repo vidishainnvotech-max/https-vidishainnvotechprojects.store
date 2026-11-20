@@ -1,17 +1,19 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, LayoutGrid } from "lucide-react";
 
+import Reveal from "../Reveal";
+
 function CtaSection({ onExploreCategories }) {
   return (
     <section className="home-cta">
-      <div className="container home-cta__container">
+      <Reveal className="container home-cta__container">
         <div>
           <p>Ready to start?</p>
 
           <h2>Pick a category and start building today.</h2>
 
           <span>
-            Browse the full project catalog, pick the domain that fits your
+            Browse the full software catalog, pick the domain that fits your
             branch, and get everything you need to finish before your review.
           </span>
         </div>
@@ -31,7 +33,7 @@ function CtaSection({ onExploreCategories }) {
             <ArrowRight size={16} />
           </Link>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

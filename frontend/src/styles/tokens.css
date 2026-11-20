@@ -40,7 +40,7 @@
   --text-lg: 18px;
   --text-h3: 22px;
   --text-h2: 32px;
-  --text-h1: 48px;
+  --text-h1: 56px;
 
   --leading-h1: 1.1;
   --leading-h2: 1.2;
@@ -60,16 +60,34 @@
   /* ---- Radii ---- */
   --radius-sm: 6px;
   --radius: 8px;
-  --radius-card: 12px;
+  --radius-card: 16px;
 
   /* ---- Elevation: subtle by design ---- */
   --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04);
-  --shadow-card-hover: 0 4px 12px rgb(15 23 42 / 0.08);
+  --shadow-card-hover: 0 12px 28px rgb(15 23 42 / 0.12);
   --shadow-lg: 0 12px 32px rgb(15 23 42 / 0.1);
 
   /* ---- Layout ---- */
   --container-max: 1200px;
   --control-height: 44px;
+
+  /* navy + blue system */
+  --color-navy: #0b1f3a;
+  --color-navy-2: #12305a;
+  --color-primary-soft: #eff6ff;
+  --color-accent: #38bdf8;
+  --gradient-hero: linear-gradient(135deg, #0b1f3a 0%, #12305a 60%, #1d4ed8 100%);
+  --gradient-primary: linear-gradient(135deg, #2563eb, #1d4ed8);
+
+  /* motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 0.18s;
+  --dur: 0.35s;
+  --dur-slow: 0.6s;
+
+  /* missing vars used in App.css */
+  --danger: #dc2626;
+  --border-hover: #93c5fd;
 
   /* ---- Aliases ----
      Shorthand names accepted in externally authored CSS.

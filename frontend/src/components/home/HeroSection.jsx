@@ -32,18 +32,18 @@ function HeroSection({ onSearch, counts }) {
         <div className="home-hero__content">
           <p className="home-hero__eyebrow">
             <Sparkles size={14} />
-            Engineering project catalog
+            Software catalog
           </p>
 
           <h1>
-            Build engineering projects
+            Build software
             <span> that stand out.</span>
           </h1>
 
           <p className="home-hero__description">
-            Explore a curated catalog of IoT, AI and core engineering projects
-            made for students who want practical experience and a confident
-            final-year presentation.
+            Explore a curated catalog of IoT, AI and core Software
+            made for users who want practical experience and a confident
+            Software presentation.
           </p>
 
           <form
@@ -58,8 +58,8 @@ function HeroSection({ onSearch, counts }) {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search projects, categories or technologies..."
-              aria-label="Search projects"
+              placeholder="Search software, categories or technologies..."
+              aria-label="Search software"
             />
             <button type="submit" className="btn btn-primary">
               Search
@@ -70,11 +70,11 @@ function HeroSection({ onSearch, counts }) {
           <div className="home-hero__meta">
             <div>
               <strong>{formatCount(totalProjects)}</strong>
-              <span>Projects to explore</span>
+              <span>Software to explore</span>
             </div>
             <div>
               <strong>{formatCount(totalCategories)}</strong>
-              <span>Engineering categories</span>
+              <span>Software categories</span>
             </div>
             <div>
               <strong>100%</strong>
@@ -87,7 +87,7 @@ function HeroSection({ onSearch, counts }) {
           <div className="home-hero__image-frame">
             <img
               src={heroImage}
-              alt="Engineering project"
+              alt="Software"
               width={1200}
               height={1000}
             />

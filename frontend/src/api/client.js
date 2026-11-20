@@ -18,15 +18,16 @@ export function setToken(token) {
       localStorage.removeItem(TOKEN_KEY);
     }
   } catch {
-    /* storage unavailable */
+    // Storage may be unavailable.
   }
 }
 
 const apiClient = axios.create({
-  baseURL: "http://127.0.0.1:8000/api",
+  baseURL:
+    import.meta.env.VITE_API_URL ||
+    (import.meta.env.DEV ? "http://127.0.0.1:8000/api" : "/api"),
   headers: {
     Accept: "application/json",
-    "Content-Type": "application/json",
   },
 });
 
@@ -36,6 +37,12 @@ apiClient.interceptors.request.use((config) => {
   if (token) {
     config.headers = config.headers ?? {};
     config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  if (config.data instanceof FormData) {
+    delete config.headers["Content-Type"];
+  } else if (config.data != null) {
+    config.headers["Content-Type"] = "application/json";
   }
 
   return config;

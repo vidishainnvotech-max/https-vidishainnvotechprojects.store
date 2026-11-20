@@ -1,4 +1,5 @@
 import { Check, Layers, PlayCircle, ShieldCheck } from "lucide-react";
+import Reveal from "../Reveal";
 
 const STAGES = [
   { percentage: "20%", title: "Foundation", description: "Architecture, requirements and starter code." },
@@ -20,32 +21,32 @@ function HowItWorksSection() {
         <p className="hx__eyebrow">A smarter way to build</p>
         <h2>Progress you can see.<br />Unlock as you go.</h2>
         <p className="hx__lead">
-          Each completed installment unlocks the next set of project files, so
-          your project moves from idea to final demo in clear stages.
+          Each completed installment unlocks the next set of software files, so
+          your software moves from idea to final demo in clear stages.
         </p>
 
         <ol className="hx__steps">
-          {STAGES.map((stage) => (
-            <li className="hx__step" key={stage.title}>
+          {STAGES.map((stage, i) => (
+            <Reveal as="li" className="hx__step" key={stage.title} delay={i * 0.12}>
               <span className="hx__node">
                 <b>{stage.percentage}</b>
                 <Check size={12} aria-hidden="true" />
               </span>
               <h3>{stage.title}</h3>
               <p>{stage.description}</p>
-            </li>
+            </Reveal>
           ))}
         </ol>
 
         <ul className="hx__perks">
-          {PERKS.map(({ icon: Icon, title, text }) => (
-            <li key={title}>
+          {PERKS.map(({ icon: Icon, title, text }, i) => (
+            <Reveal as="li" key={title} delay={i * 0.1}>
               <Icon size={18} aria-hidden="true" />
               <div>
                 <strong>{title}</strong>
                 <span>{text}</span>
               </div>
-            </li>
+            </Reveal>
           ))}
         </ul>
       </div>

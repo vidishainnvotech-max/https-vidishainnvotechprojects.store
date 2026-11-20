@@ -6,9 +6,11 @@ import {
   Trophy,
 } from "lucide-react";
 
+import Reveal from "../Reveal";
+
 const BENEFITS = [
   {
-    title: "Complete project kits",
+    title: "Complete software kits",
     description:
       "Source code, circuit diagrams, report and documentation delivered together so nothing is left pending before your review.",
     icon: FolderCheck,
@@ -17,7 +19,7 @@ const BENEFITS = [
   {
     title: "Guided stages",
     description:
-      "Clear milestones keep your project moving from idea to submission.",
+      "Clear milestones keep your software moving from idea to submission.",
     icon: Route,
     wide: false,
   },
@@ -31,7 +33,7 @@ const BENEFITS = [
   {
     title: "Skills that place you",
     description:
-      "IoT, AI and embedded experience that you can speak about in interviews, backed by projects you actually understand end to end.",
+      "IoT, AI and embedded experience that you can speak about in interviews, backed by software you actually understand end to end.",
     icon: Trophy,
     wide: true,
   },
@@ -41,26 +43,28 @@ function WhyUsSection() {
   return (
     <section id="why-us" className="home-section home-section--muted">
       <div className="container">
-        <div className="home-section-heading">
+        <Reveal className="home-section-heading">
           <div>
             <p className="home-eyebrow">Why us</p>
 
-            <h2>Built for students who want more than a file</h2>
+            <h2>Built for users who want more than a file</h2>
 
             <p>
               Everything is designed around one goal: you should be able to
-              explain, demo and defend your project.
+              explain, demo and defend your software.
             </p>
           </div>
-        </div>
+        </Reveal>
 
         <div className="home-benefits-grid">
           {BENEFITS.map((benefit, index) => {
             const Icon = benefit.icon;
 
             return (
-              <article
+              <Reveal
+                as="article"
                 key={benefit.title}
+                delay={Math.min(index, 3) * 0.08}
                 className={
                   benefit.wide
                     ? "home-benefit-card home-benefit-wide"
@@ -80,7 +84,7 @@ function WhyUsSection() {
                 <p>{benefit.description}</p>
 
                 <ArrowRight className="home-benefit-card__arrow" size={17} />
-              </article>
+              </Reveal>
             );
           })}
         </div>

@@ -1,15 +1,42 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Download, Search, Users } from "lucide-react";
+import { Download, Search, Users, UserCheck, UsersRound } from "lucide-react";
 
 import apiClient from "../../api/client";
 import { me } from "../../api/student";
-import AdminHeader from "../../components/admin/AdminHeader";
+import { useToastOn } from "../../components/Toast";
 
 function formatDate(value) {
   if (!value) return "—";
 
   return new Date(value).toLocaleDateString();
+}
+
+function getGroupMemberCount(user) {
+  const group = user?.group;
+  const candidates = [
+    group?.members_count,
+    group?.members_count,
+    group?.members?.length,
+    group?.group_members?.length,
+    user?.group_members_count,
+  ];
+
+  const count = candidates.find(
+    (value) => value !== null && value !== undefined && Number.isFinite(Number(value))
+  );
+
+  return count === undefined ? null : Number(count);
+}
+
+function getGroupNumber(user) {
+  return (
+    user?.group?.group_number ??
+    user?.group?.number ??
+    user?.group?.id ??
+    user?.group_id ??
+    null
+  );
 }
 
 function AdminUsers() {
@@ -23,6 +50,8 @@ function AdminUsers() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [exporting, setExporting] = useState(false);
+
+  useToastOn(errorStatus === 401 || errorStatus === 403 ? "" : error, "error", setError);
 
   useEffect(() => {
     let cancelled = false;
@@ -149,8 +178,6 @@ function AdminUsers() {
   if (access === "checking") {
     return (
       <div className="student-page">
-        <AdminHeader />
-
         <main className="container admin-page">
           <div className="student-state">Checking access...</div>
         </main>
@@ -161,8 +188,6 @@ function AdminUsers() {
   if (access === "unauth") {
     return (
       <div className="student-page">
-        <AdminHeader />
-
         <main className="container admin-page">
           <div className="student-state student-state--error">
             Your session has expired.
@@ -179,8 +204,6 @@ function AdminUsers() {
   if (access === "denied") {
     return (
       <div className="student-page">
-        <AdminHeader />
-
         <main className="container admin-page">
           <div className="student-state student-state--error">
             Admin access required.
@@ -196,8 +219,6 @@ function AdminUsers() {
 
   return (
     <div className="student-page">
-      <AdminHeader />
-
       <main className="container admin-page">
       <header className="admin-header">
         <div>
@@ -206,12 +227,12 @@ function AdminUsers() {
           <p className="admin-header__desc">Search accounts, review access and export the user list.</p>
         </div>
 
-        <div className="admin-header__actions">
+        <div className="admin-users-toolbar">
           <div className="admin-search">
-            <Search size={15} />
+            <Search size={16} aria-hidden="true" />
             <input
               type="search"
-              placeholder="Search name, email, mobile, college ID"
+              placeholder="Search by name, email, mobile or college"
               value={searchInput}
               onChange={(event) => setSearchInput(event.target.value)}
               aria-label="Search users"
@@ -220,23 +241,37 @@ function AdminUsers() {
 
           <button
             type="button"
-            className="btn btn-secondary btn-sm"
+            className="btn btn-secondary btn-sm admin-export-button"
             onClick={handleExport}
             disabled={exporting}
           >
-            <Download size={15} />
+            <Download size={15} aria-hidden="true" />
             {exporting ? "Exporting..." : "Export CSV"}
           </button>
         </div>
       </header>
 
-      {meta && meta.total > 0 && (
-        <div className="stat-grid">
-          <div className="stat-tile"><span className="stat-tile__label">Total users</span><span className="stat-tile__value">{meta.total}</span></div>
-          <div className="stat-tile"><span className="stat-tile__label">On this page</span><span className="stat-tile__value">{users.length}</span></div>
-          <div className="stat-tile"><span className="stat-tile__label">Page</span><span className="stat-tile__value">{meta.current_page}/{meta.last_page}</span></div>
-        </div>
-      )}
+      <section className="admin-summary-grid" aria-label="Summary">
+        <article className="admin-summary-card">
+          <div className="admin-summary-card__icon">
+            <UserCheck size={20} aria-hidden="true" />
+          </div>
+          <div className="admin-summary-card__content">
+            <span>Total users</span>
+            <strong>{meta?.total ?? users.filter((user) => user.role === "student").length}</strong>
+          </div>
+        </article>
+
+        <article className="admin-summary-card">
+          <div className="admin-summary-card__icon">
+            <UsersRound size={20} aria-hidden="true" />
+          </div>
+          <div className="admin-summary-card__content">
+            <span>Groups</span>
+            <strong>{new Set(users.map(getGroupNumber).filter(Boolean)).size}</strong>
+          </div>
+        </article>
+      </section>
 
       {error && (
         <div className="student-state student-state--error" role="alert">
@@ -270,7 +305,7 @@ function AdminUsers() {
         <div className="empty-state">
           <span className="empty-state__icon"><Users size={24} aria-hidden="true" /></span>
           <h3>{search ? "No matching users" : "No users yet"}</h3>
-          <p>{search ? `Nothing matches “${search}”. Try a different name, email or ID.` : "Registered users will appear here."}</p>
+          <p>{search ? `Nothing matches "${search}". Try a different name, email or ID.` : "Registered users will appear here."}</p>
           {search && <button type="button" className="btn btn-secondary btn-sm" onClick={() => setSearchInput("")}>Clear search</button>}
         </div>
       )}
@@ -283,19 +318,19 @@ function AdminUsers() {
                   meta.total ?? 0
                 } users`
               : `${users.length} users`}
-            {search ? ` · matching “${search}”` : ""}
+            {search ? ` · matching "${search}"` : ""}
           </div>
 
           <div className="admin-table-wrap">
-            <table className="admin-table">
+            <table className="admin-table admin-users-table">
               <thead>
                 <tr>
-                  <th>Name</th>
+                  <th>User</th>
                   <th>Email</th>
                   <th>Mobile</th>
-                  <th>College ID</th>
-                  <th>Role</th>
-                  <th>Created</th>
+                  <th>College</th>
+                  <th>Group</th>
+                  <th>Joined</th>
                   <th>
                     <span className="admin-visually-hidden">Actions</span>
                   </th>
@@ -303,32 +338,68 @@ function AdminUsers() {
               </thead>
 
               <tbody>
-                {users.map((user) => (
-                  <tr key={user.id}>
-                    <td data-label="Name">
-                      <span className="admin-user">
-                        <span className="admin-avatar" aria-hidden="true">{(user.name || "?").charAt(0).toUpperCase()}</span>
-                        {user.name}
-                      </span>
-                    </td>
-                    <td data-label="Email">{user.email}</td>
-                    <td data-label="Mobile">{user.mobile ?? "—"}</td>
-                    <td data-label="College ID">{user.college_id ?? "—"}</td>
-                    <td data-label="Role">
-                      <span className={`admin-role ${user.role === "admin" ? "admin-role--admin" : "admin-role--student"}`}>
-                        {user.role}
-                      </span>
-                    </td>
-                    <td data-label="Created">{formatDate(user.created_at)}</td>
-                    <td className="admin-table__action">
-                      <Link to={`/admin/users/${user.id}`} className="btn btn-secondary btn-sm">View</Link>
-                    </td>
-                  </tr>
-                ))}
+                {users.filter((user) => user.role === "student").map((user) => {
+                  const memberCount = getGroupMemberCount(user);
+                  const groupNumber = getGroupNumber(user);
+                  const college =
+                    user?.group?.college?.name ??
+                    user?.college?.name ??
+                    user?.college_id ??
+                    "—";
+
+                  return (
+                    <tr key={user.id}>
+                      <td data-label="User" className="cell-name">
+                        {user.name || "—"}
+                      </td>
+
+                      <td data-label="Email" className="cell-email">
+                        {user.email || "—"}
+                      </td>
+
+                      <td data-label="Mobile">{user.mobile ?? "—"}</td>
+
+                      <td
+                        data-label="College"
+                        className="cell-college"
+                        title={String(college)}
+                      >
+                        {college}
+                      </td>
+
+                      <td data-label="Group">
+                        {groupNumber ? (
+                          <span
+                            className="group-chip"
+                            title={`${memberCount ?? 0} members`}
+                          >
+                            <span className="group-chip__id">Group {groupNumber}</span>
+                            <span className="group-chip__count">
+                              <Users size={12} aria-hidden="true" />
+                              {memberCount ?? 0}
+                            </span>
+                          </span>
+                        ) : (
+                          <span className="admin-muted">—</span>
+                        )}
+                      </td>
+
+                      <td data-label="Joined">{formatDate(user.created_at)}</td>
+
+                      <td data-label="Actions" className="admin-table__action">
+                        <Link
+                          to={`/admin/users/${user.id}`}
+                          className="btn btn-secondary btn-sm"
+                        >
+                          View
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
-
           {meta && meta.total > 0 && (
             <div className="admin-pagination">
               <button

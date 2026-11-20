@@ -1,3 +1,3 @@
 export const brand = {
-  name: "Vidishainnvotech",
+  name: "Sal Software",
 };

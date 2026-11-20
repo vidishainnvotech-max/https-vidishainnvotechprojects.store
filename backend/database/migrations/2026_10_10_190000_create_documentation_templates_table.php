@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('documentation_templates', function (Blueprint $table) {
+            $table->id();
+
+            $table->foreignId('college_id')
+                ->nullable()
+                ->constrained('colleges')
+                ->nullOnDelete();
+
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->string('file_path');
+            $table->string('file_type', 20);
+            $table->boolean('is_active')->default(true);
+
+            $table->timestamps();
+
+            $table->index(['college_id', 'is_active']);
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('documentation_templates');
+    }
+};

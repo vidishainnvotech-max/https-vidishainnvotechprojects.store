@@ -1,0 +1,42 @@
+.admin-shell .admin-doc {
+  width: 100%;
+  max-width: none !important;
+  min-width: 0;
+  padding: 28px 32px 48px !important;
+  box-sizing: border-box;
+}
+
+.admin-doc-table-wrap { width: 100%; max-width: 100%; }
+.admin-doc-table { width: 100% !important; min-width: 0 !important; table-layout: fixed; }
+.admin-doc-table th:nth-child(1) { width: 22%; }
+.admin-doc-table th:nth-child(2) { width: 43%; }
+.admin-doc-table th:nth-child(3) { width: 6%; }
+.admin-doc-table th:nth-child(4) { width: 8%; }
+.admin-doc-table th:nth-child(5) { width: 21%; }
+.admin-doc-table td { overflow-wrap: anywhere; }
+.admin-doc-actions { display: flex; align-items: center; justify-content: flex-start; gap: 6px; flex-wrap: nowrap; }
+.admin-doc-actions button { flex: 0 0 auto; min-height: 38px; padding: 8px 11px !important; white-space: nowrap; }
+
+@media (max-width: 1180px) {
+  .admin-shell .admin-doc { padding: 24px !important; }
+  .admin-doc-table-wrap { overflow-x: auto !important; }
+  .admin-doc-table { min-width: 1040px !important; table-layout: fixed; }
+}
+
+@media (max-width: 760px) {
+  .admin-shell .admin-doc { padding: 20px 14px 36px !important; }
+  .admin-shell .admin-doc > section { padding: 16px !important; border-radius: 15px !important; }
+  .admin-doc-table-wrap { overflow: visible !important; }
+  .admin-doc-table, .admin-doc-table tbody, .admin-doc-table tr, .admin-doc-table td { display: block; width: 100%; min-width: 0 !important; }
+  .admin-doc-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .admin-doc-table tr { margin-bottom: 12px; padding: 8px 0; border: 1px solid #e2e8f0; border-radius: 14px; background: #fff; box-shadow: 0 8px 22px rgb(15 23 42 / 5%); }
+  .admin-doc-table td { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; padding: 9px 12px !important; border: 0 !important; }
+  .admin-doc-table td::before { content: attr(data-label); color: #64748b; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+  .admin-doc-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+  .admin-doc-actions button { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 420px) {
+  .admin-doc-table td { grid-template-columns: 1fr; }
+  .admin-doc-actions { grid-template-columns: 1fr; }
+}

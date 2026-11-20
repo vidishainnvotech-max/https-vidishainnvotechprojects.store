@@ -189,14 +189,6 @@ p {
   animation: fadeUp 0.7s 0.1s ease both;
 }
 
-.hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 36px;
-  animation: fadeUp 0.7s 0.2s ease both;
-}
-
 /* =========================================================
    BUTTONS
    ========================================================= */
@@ -255,20 +247,6 @@ p {
   min-height: 42px;
   padding: 0 16px;
   font-size: 14px;
-}
-
-/* =========================================================
-   CATALOG
-   ========================================================= */
-
-.catalog-section {
-  padding: 110px 0;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg);
-}
-
-.catalog-section:nth-of-type(even) {
-  background: #ffffff;
 }
 
 .section-heading {
@@ -366,12 +344,6 @@ p {
 .project-grid > *:hover,
 .plan-grid > *:hover {
   transform: translateY(-6px);
-}
-
-.section-action {
-  display: flex;
-  justify-content: center;
-  margin-top: 44px;
 }
 
 /* =========================================================
@@ -632,35 +604,6 @@ p {
   color: var(--text-muted);
   font-size: 13px;
   font-weight: 650;
-}
-
-.project-plan-card__unlock-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.project-plan-card__unlock-item {
-  min-height: 40px;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 9px 11px;
-  color: var(--text-muted);
-  background: #f8fafc;
-  border: 1px solid #edf2f7;
-  border-radius: 10px;
-  font-size: 13px;
-}
-
-.project-plan-card__unlock-item svg {
-  flex-shrink: 0;
-  color: var(--success);
-}
-
-.project-plan-card__unlock-item strong {
-  margin-left: auto;
-  color: var(--text);
 }
 
 .project-plan-card > .btn {
@@ -1300,8 +1243,7 @@ p {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
+  }}
 
 @keyframes float {
   0%,
@@ -1311,43 +1253,7 @@ p {
 
   50% {
     transform: translateY(-18px);
-  }
-}
-
-/* =========================================================
-   DEV BANNER
-   ========================================================= */
-
-.dev-banner {
-  padding: 6px 12px;
-  font-size: 12px;
-  text-align: center;
-  color: var(--text-muted);
-  background: var(--surface-soft);
-  border-bottom: 1px solid var(--border);
-}
-
-/* =========================================================
-   HERO LASER EFFECT
-   ========================================================= */
-
-.hero-laser-text {
-  position: relative;
-  display: inline;
-  transition:
-    text-shadow 0.45s ease,
-    filter 0.45s ease,
-    color 0.45s ease;
-}
-
-.hero-laser-text.is-active {
-  color: #2f6bff;
-  text-shadow:
-    0 0 6px rgba(59, 130, 246, 0.55),
-    0 0 18px rgba(37, 99, 235, 0.4),
-    0 0 36px rgba(37, 99, 235, 0.25);
-  animation: laserLockBurst 0.9s ease-out both;
-}
+  }}
 
 @keyframes laserLockBurst {
   0% {
@@ -1369,17 +1275,7 @@ p {
       0 0 6px rgba(59, 130, 246, 0.55),
       0 0 18px rgba(37, 99, 235, 0.4),
       0 0 36px rgba(37, 99, 235, 0.25);
-  }
-}
-
-.hero-frame {
-  isolation: isolate;
-}
-
-.hero-video {
-  display: block;
-  background: #0f172a;
-}
+  }}
 
 /* =========================================================
    TABLET
@@ -1396,8 +1292,7 @@ p {
 
   .document-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
+  }}
 
 @media (max-width: 900px) {
   .hero {
@@ -1408,10 +1303,6 @@ p {
   .project-grid,
   .plan-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .catalog-section {
-    padding: 80px 0;
   }
 
   .checkout-payment {
@@ -1434,8 +1325,7 @@ p {
   .checkout-complete-card .btn {
     grid-column: 1 / -1;
     width: 100%;
-  }
-}
+  }}
 
 /* =========================================================
    MOBILE
@@ -1458,14 +1348,6 @@ p {
     font-size: 16px;
   }
 
-  .hero__actions {
-    flex-direction: column;
-  }
-
-  .hero__actions .btn {
-    width: 100%;
-  }
-
   .category-grid,
   .project-grid,
   .plan-grid,
@@ -1473,10 +1355,6 @@ p {
   .project-info-grid,
   .document-grid {
     grid-template-columns: 1fr;
-  }
-
-  .catalog-section {
-    padding: 70px 0;
   }
 
   .detail-section {
@@ -1653,8 +1531,7 @@ p {
 
   .document-card {
     min-height: 130px;
-  }
-}
+  }}
 
 /* =========================================================
    ACCESSIBILITY / REDUCED MOTION
@@ -1671,12 +1548,7 @@ p {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-
-  .hero-laser-text.is-active {
-    animation: none;
-  }
-}
+  }}
 .stage-item__title-row {
   display: flex;
   align-items: center;
@@ -1748,5 +1620,12 @@ p {
     min-width: 72px;
     padding: 4px 8px;
     font-size: 10px;
-  }
+  }}
+
+.required-mark {
+  display: inline-block;
+  margin-left: 0.22rem;
+  color: #dc2626;
+  font-weight: 800;
+  line-height: 1;
 }

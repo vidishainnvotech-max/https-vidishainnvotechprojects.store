@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { LogOut, Menu, ShieldCheck, X } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
 
 import { setToken } from "../../api/client";
 import { logout } from "../../api/student";
-import { brand } from "../../config/brand";
+import BrandLogo from "../common/BrandLogo";
 
 function AdminHeader() {
   const navigate = useNavigate();
@@ -36,8 +36,7 @@ function AdminHeader() {
     <header className="vh vh--admin">
       <div className="vh__bar">
         <Link to="/admin/users" className="vh-brand" onClick={() => setOpen(false)}>
-          <span className="vh-brand__icon"><ShieldCheck size={20} aria-hidden="true" /></span>
-          <span className="vh-brand__text">{brand.name}</span>
+          <BrandLogo markClassName="vh-brand__icon" nameClassName="vh-brand__text" />
           <span className="vh-badge">Admin</span>
         </Link>
 

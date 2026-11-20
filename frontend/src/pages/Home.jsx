@@ -4,6 +4,7 @@ import CtaSection from "../components/home/CtaSection";
 import FeaturedProjects from "../components/home/FeaturedProjects";
 import HeroSection from "../components/home/HeroSection";
 import HowItWorksSection from "../components/home/HowItWorksSection";
+import PlansSection from "../components/home/PlansSection";
 import WhyUsSection from "../components/home/WhyUsSection";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -13,17 +14,18 @@ import { scrollToId } from "../utils/catalog";
 const FEATURED_LIMIT = 8;
 
 const HOME_LINKS = [
-  { label: "Projects", href: "#projects" },
+  { label: "Software", href: "#software" },
   { label: "Categories", href: "#categories" },
   { label: "How it works", href: "#how-it-works" },
+  { label: "Plans", href: "#plans" },
   { label: "Why us", href: "#why-us" },
 ];
 
 const HOME_FOOTER_LINKS = [
-  { label: "Projects", to: "/projects" },
+  { label: "Software", to: "/projects" },
   { label: "Pricing", to: "/pricing" },
   { label: "How it works", href: "#how-it-works" },
-  { label: "Student support", href: "#why-us" },
+  { label: "User support", href: "#why-us" },
 ];
 
 function Home() {
@@ -48,7 +50,7 @@ function Home() {
 
   return (
     <main className="home-page">
-      <Header links={HOME_LINKS} showSignIn />
+      <Header links={HOME_LINKS} />
 
       <HeroSection
         onSearch={handleSearch}
@@ -89,6 +91,7 @@ function Home() {
       )}
 
       <HowItWorksSection />
+      <PlansSection />
       <WhyUsSection />
 
       <CtaSection onExploreCategories={() => scrollToId("categories")} />

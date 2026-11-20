@@ -1,42 +1,40 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { GraduationCap, Menu, X } from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 
 import { brand } from "../config/brand";
 import { scrollToId } from "../utils/catalog";
+import BrandLogo from "./common/BrandLogo";
+import UserMenu from "./UserMenu";
 
 const ROUTE_LINKS = [
   { label: "Home", to: "/", end: true },
-  { label: "Projects", to: "/projects" },
+  { label: "Software", to: "/projects" },
   { label: "Pricing", to: "/pricing" },
 ];
 
 function Header({
   links = ROUTE_LINKS,
-  showSignIn = false,
-  onSignIn,
   variant = "public", // "public" | "student" | "admin"
   userLabel,
   onSignOut,
 }) {
-  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const close = () => setOpen(false);
 
   const handleNavClick = (link) => (event) => {
     if (link.href?.startsWith("#")) {
       event.preventDefault();
       scrollToId(link.href.slice(1));
-    }
-
-    close();
-  };
-
-  const handleSignIn = () => {
-    if (typeof onSignIn === "function") {
-      onSignIn();
-    } else {
-      navigate("/login");
     }
 
     close();
@@ -66,7 +64,7 @@ function Header({
       </a>
     );
 
-  const roleLabel = variant === "admin" ? "Admin" : "Student";
+  const roleLabel = variant === "admin" ? "Admin" : "User";
 
   const actions = (
     <>
@@ -76,30 +74,19 @@ function Header({
           Sign out
         </button>
       )}
-      {variant === "public" && showSignIn && (
-        <>
-          <button type="button" className="btn btn-ghost btn-sm" onClick={handleSignIn}>Sign in</button>
-          <Link to="/login" className="btn btn-primary btn-sm" onClick={close}>Get started</Link>
-        </>
-      )}
     </>
   );
 
-  const [first, ...rest] = brand.name.split(" ");
-
   return (
-    <header className={`vh vh--${variant}`}>
+    <header className={`vh vh--${variant}${scrolled ? " is-scrolled" : ""}`}>
       <div className="vh__bar">
         <Link to="/" className="vh-brand" aria-label={`${brand.name} home`} onClick={close}>
-          <span className="vh-brand__icon"><GraduationCap size={20} aria-hidden="true" /></span>
-          <span className="vh-brand__text">
-            {first}
-            {rest.length > 0 && <span> {rest.join(" ")}</span>}
-          </span>
+          <BrandLogo markClassName="vh-brand__icon" nameClassName="vh-brand__text" />
           {variant !== "public" && <span className="vh-badge">{roleLabel}</span>}
         </Link>
 
         <nav className="vh__nav" aria-label="Main navigation">{links.map(renderLink)}</nav>
+        <UserMenu />
         <div className="vh__actions">{actions}</div>
 
         <button
@@ -114,7 +101,7 @@ function Header({
       </div>
 
       {open && (
-        <nav className="vh-mobile rise" aria-label="Mobile navigation">
+        <nav className="vh-mobile vh-mobile--open" aria-label="Mobile navigation">
           {links.map(renderLink)}
           <div className="vh-mobile__actions">{actions}</div>
         </nav>

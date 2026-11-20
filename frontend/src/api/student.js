@@ -21,6 +21,11 @@ export const downloadResource = async (type, id) => {
   return response.data;
 };
 
+export const downloadProjectFile = async (downloadUrl) => {
+  const response = await apiClient.get(downloadUrl, { responseType: "blob" });
+  return response.data;
+};
+
 export const getStageVideo = async (stageId) => {
   const response = await apiClient.get(`/stage/${stageId}/video`);
   return response.data;

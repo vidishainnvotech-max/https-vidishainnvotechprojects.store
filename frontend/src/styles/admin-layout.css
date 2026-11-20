@@ -1,0 +1,275 @@
+/* admin-layout.css - structural layout for the admin shell */
+
+.admin-shell {
+  min-height: 100vh;
+  padding-left: 260px;
+}
+
+/* Sidebar */
+.admin-shell .admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  transition: transform 0.28s ease;
+}
+.admin-shell .admin-sidebar::-webkit-scrollbar {
+  display: none;
+}
+.admin-shell .admin-sidebar__brand {
+  padding: 18px 18px;
+}
+.admin-shell .admin-sidebar__brand-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.admin-shell .admin-sidebar__brand-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+}
+.admin-shell .admin-sidebar__brand-copy {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.admin-shell .admin-sidebar__brand-copy strong {
+  font-size: 15px;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.admin-shell .admin-sidebar__brand-copy small {
+  font-size: 12px;
+}
+.admin-shell .admin-sidebar__section {
+  display: grid;
+  gap: 10px;
+  padding: 18px 12px 0;
+}
+.admin-shell .admin-sidebar__label {
+  padding: 0 10px;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+.admin-shell .admin-sidebar__nav {
+  display: grid;
+  gap: 4px;
+}
+.admin-shell .admin-sidebar__link {
+  padding: 10px 12px;
+  font-size: 14px;
+  text-decoration: none;
+}
+.admin-shell .admin-sidebar__spacer {
+  flex: 1;
+}
+.admin-shell .admin-sidebar__footer {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+}
+.admin-shell .admin-sidebar__logout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 14px;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.admin-shell .admin-sidebar__overlay {
+  display: none;
+}
+
+/* Topbar: one row */
+.admin-shell .admin-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 68px;
+  padding: 10px 32px;
+  backdrop-filter: blur(10px);
+}
+.admin-shell .admin-topbar > * {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.admin-shell .admin-topbar > .admin-topbar__context,
+.admin-shell .admin-topbar__context {
+  display: grid;
+  gap: 2px;
+}
+.admin-shell .admin-topbar__eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+.admin-shell .admin-topbar__context strong {
+  font-size: 15px;
+  line-height: 1.2;
+}
+.admin-shell .admin-topbar__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  cursor: pointer;
+}
+.admin-shell .admin-topbar__divider {
+  align-self: center;
+  width: 1px;
+  height: 24px;
+}
+.admin-shell .admin-topbar__profile {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.admin-shell .admin-topbar__avatar {
+  display: grid;
+  place-items: center;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+}
+.admin-shell .admin-topbar__profile-copy {
+  display: grid;
+  gap: 1px;
+  line-height: 1.2;
+  text-align: left;
+}
+.admin-shell .admin-topbar__profile-copy strong {
+  font-size: 13px;
+}
+.admin-shell .admin-topbar__profile-copy span {
+  font-size: 12px;
+}
+
+/* Menu button: mobile only */
+.admin-shell .admin-topbar__menu {
+  display: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Full-width content */
+.admin-shell .container,
+.admin-shell .admin-page {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .admin-shell {
+    padding-left: 0;
+  }
+  .admin-shell .admin-sidebar {
+    transform: translateX(-100%);
+  }
+  .admin-shell .admin-sidebar.is-open {
+    transform: translateX(0);
+  }
+  .admin-shell .admin-sidebar__overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 39;
+    display: block;
+    border: 0;
+    background: rgba(15, 23, 42, 0.5);
+  }
+  .admin-shell .admin-topbar {
+    padding: 10px 16px;
+  }
+  .admin-shell .admin-topbar__menu {
+    display: inline-grid;
+  }
+  .admin-shell .container,
+  .admin-shell .admin-page {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+@media (max-width: 560px) {
+  .admin-shell .admin-topbar__profile-copy {
+    display: none;
+  }
+}
+
+/* Consistent spacing for every admin sidebar item */
+.admin-shell .admin-sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-shell .admin-sidebar__link {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 14px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Keep the sidebar footer separate from navigation spacing */
+.admin-shell .admin-sidebar__footer {
+  margin-top: 0;
+}
+
+.admin-shell .admin-sidebar {
+  overflow: hidden;
+}
+.admin-shell .admin-sidebar__section {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.admin-shell .admin-sidebar__spacer {
+  display: none;
+}
+.admin-shell .admin-sidebar__footer {
+  flex: 0 0 auto;
+}
+
+/* short screens: tighter menu */
+@media (max-height: 900px) {
+  .admin-shell .admin-sidebar__link {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}

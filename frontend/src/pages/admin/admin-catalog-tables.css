@@ -1,0 +1,85 @@
+.admin-shell .admin-projects-page,
+.admin-shell .admin-stages-page { width: 100%; max-width: none; min-width: 0; }
+
+.admin-projects-page .admin-table-wrap,
+.admin-stages-page .admin-table-wrap { max-width: 100%; overflow: visible; border-radius: 16px; }
+
+.admin-projects-page .admin-table,
+.admin-stages-page .admin-table { width: 100%; min-width: 0; table-layout: fixed; }
+
+.admin-projects-page .admin-table th,
+.admin-projects-page .admin-table td,
+.admin-stages-page .admin-table th,
+.admin-stages-page .admin-table td { padding: 15px 14px; }
+
+.admin-projects-page .admin-table th:nth-child(1) { width: 35%; }
+.admin-projects-page .admin-table th:nth-child(2) { width: 18%; }
+.admin-projects-page .admin-table th:nth-child(3) { width: 10%; }
+.admin-projects-page .admin-table th:nth-child(4) { width: 12%; }
+.admin-projects-page .admin-table th:nth-child(5) { width: 8%; }
+.admin-projects-page .admin-table th:nth-child(6) { width: 8%; }
+.admin-projects-page .admin-table th:nth-child(7) { width: 9%; }
+.admin-projects-page .project-cell { min-width: 0; gap: 12px; }
+.admin-projects-page .project-cell__index {
+  display: grid;
+  place-items: center;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #bfdbfe;
+  border-radius: 11px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 13px;
+  font-weight: 800;
+}
+.admin-projects-page .project-cell__text strong { display: -webkit-box; overflow: hidden; line-height: 1.4; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.admin-projects-page .row-actions { flex-wrap: nowrap; }
+
+.admin-stages-page .admin-table th:nth-child(1) { width: 48%; }
+.admin-stages-page .admin-table th:nth-child(2) { width: 15%; }
+.admin-stages-page .admin-table th:nth-child(3) { width: 12%; }
+.admin-stages-page .admin-table th:nth-child(4) { width: 25%; }
+.admin-stages-page .admin-row-actions { flex-wrap: nowrap; }
+.admin-stages-page .admin-row-actions .btn { flex: 0 0 auto; white-space: nowrap; }
+
+.admin-projects-page .admin-table tbody tr,
+.admin-stages-page .admin-table tbody tr { transition: background .18s ease, box-shadow .18s ease; }
+.admin-projects-page .admin-table tbody tr:hover,
+.admin-stages-page .admin-table tbody tr:hover { background: #f7faff; }
+
+@media (max-width: 1050px) {
+  .admin-projects-page .admin-table-wrap,
+  .admin-stages-page .admin-table-wrap { overflow: visible; border: 0; background: transparent; box-shadow: none; }
+  .admin-projects-page .admin-table,
+  .admin-projects-page .admin-table tbody,
+  .admin-projects-page .admin-table tr,
+  .admin-projects-page .admin-table td,
+  .admin-stages-page .admin-table,
+  .admin-stages-page .admin-table tbody,
+  .admin-stages-page .admin-table tr,
+  .admin-stages-page .admin-table td { display: block; width: 100%; min-width: 0; }
+  .admin-projects-page .admin-table thead,
+  .admin-stages-page .admin-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .admin-projects-page .admin-table tr,
+  .admin-stages-page .admin-table tr { margin-bottom: 12px; padding: 8px 0; border: 1px solid #e2e8f0; border-radius: 15px; background: #fff; box-shadow: 0 8px 22px rgb(15 23 42 / 5%); }
+  .admin-projects-page .admin-table td,
+  .admin-stages-page .admin-table td { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; max-width: none !important; padding: 9px 14px; border: 0; text-align: right; }
+  .admin-projects-page .admin-table td::before,
+  .admin-stages-page .admin-table td::before { content: attr(data-label); flex: 0 0 96px; color: #64748b; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-align: left; text-transform: uppercase; }
+  .admin-projects-page .project-cell { max-width: 68%; text-align: left; }
+  .admin-projects-page .admin-table__action,
+  .admin-stages-page .admin-table__action { display: block !important; padding-top: 12px !important; }
+  .admin-projects-page .admin-table__action::before,
+  .admin-stages-page .admin-table__action::before { display: none; }
+  .admin-projects-page .row-actions,
+  .admin-stages-page .admin-row-actions { justify-content: flex-end; width: 100%; }
+  .admin-stages-page .admin-row-actions .btn { flex: 1 1 auto; justify-content: center; }
+}
+
+@media (max-width: 520px) {
+  .admin-projects-page .admin-table td,
+  .admin-stages-page .admin-table td { gap: 10px; padding-inline: 12px; }
+  .admin-projects-page .project-cell__index { flex-basis: 32px; width: 32px; height: 32px; border-radius: 9px; }
+  .admin-stages-page .admin-row-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

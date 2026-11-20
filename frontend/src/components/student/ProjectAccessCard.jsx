@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { softwareLabel } from "../../utils/visibleText";
 
 function ProjectAccessCard({ project }) {
   const highestStage = Number(project.highest_stage) || 0;
@@ -7,7 +8,7 @@ function ProjectAccessCard({ project }) {
     <article className="student-project-card">
       <div className="student-project-card__content">
         <span className="student-project-card__category">
-          {project.category?.name || "Project"}
+          {softwareLabel(project.category?.name, "Software")}
         </span>
 
         <h3>{project.title}</h3>
@@ -33,7 +34,7 @@ function ProjectAccessCard({ project }) {
         to={`/student/projects/${project.id}`}
         className="student-project-card__action"
       >
-        View Project
+        View Software
       </Link>
     </article>
   );

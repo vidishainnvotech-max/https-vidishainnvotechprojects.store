@@ -4,6 +4,27 @@ import { getCategories } from "../api/categories";
 import { getProjects } from "../api/projects";
 import { toList } from "../utils/catalog";
 
+function normalizeProject(project) {
+  if (!project || typeof project !== "object") {
+    return project;
+  }
+
+  const imageUrl =
+    project.image_url ||
+    project.imageUrl ||
+    null;
+
+  return {
+    ...project,
+    image_url: imageUrl,
+    category: project.category || null,
+    is_iot:
+      project.is_iot === true ||
+      project.is_iot === 1 ||
+      project.is_iot === "1",
+  };
+}
+
 export function useHomeCatalog() {
   const [projects, setProjects] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -12,10 +33,36 @@ export function useHomeCatalog() {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("");
 
+  const loadCatalog = useCallback(async () => {
+    setLoading(true);
+    setError("");
+
+    try {
+      const [projectData, categoryData] = await Promise.all([
+        getProjects(),
+        getCategories(),
+      ]);
+
+      const normalizedProjects = toList(projectData)
+        .map(normalizeProject)
+        .filter(Boolean);
+
+      const normalizedCategories = toList(categoryData);
+
+      setProjects(normalizedProjects);
+      setCategories(normalizedCategories);
+    } catch (err) {
+      console.error("Home catalog loading failed:", err);
+      setError("Unable to load software.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     let cancelled = false;
 
-    async function loadCatalog() {
+    async function load() {
       try {
         const [projectData, categoryData] = await Promise.all([
           getProjects(),
@@ -24,18 +71,28 @@ export function useHomeCatalog() {
 
         if (cancelled) return;
 
-        setProjects(toList(projectData));
+        setProjects(
+          toList(projectData)
+            .map(normalizeProject)
+            .filter(Boolean),
+        );
+
         setCategories(toList(categoryData));
+        setError("");
       } catch (err) {
         console.error("Home catalog loading failed:", err);
 
-        if (!cancelled) setError("Unable to load projects.");
+        if (!cancelled) {
+          setError("Unable to load software.");
+        }
       } finally {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
     }
 
-    loadCatalog();
+    load();
 
     return () => {
       cancelled = true;
@@ -71,7 +128,8 @@ export function useHomeCatalog() {
 
     return projects.filter((project) => {
       const matchesCategory =
-        !activeCategory || project.category?.slug === activeCategory;
+        !activeCategory ||
+        project.category?.slug === activeCategory;
 
       if (!matchesCategory) {
         return false;
@@ -121,6 +179,7 @@ export function useHomeCatalog() {
     search,
     selectCategory,
     clearFilters,
+    refresh: loadCatalog,
   };
 }
 

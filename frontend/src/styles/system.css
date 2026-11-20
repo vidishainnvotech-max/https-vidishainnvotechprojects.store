@@ -472,3 +472,55 @@ img, video, svg { max-width: 100%; }
 
 /* Dev banner -> quiet "Test Mode" strip */
 .dev-banner { padding: 6px 16px; font-size: 12px; font-weight: 500; letter-spacing: .04em; text-align: center; color: var(--text-muted); background: var(--locked-soft); border-bottom: 1px solid var(--border); }
+
+/* ---------- PRICING ---------- */
+.pricing-page { position: relative; padding-block: 64px 88px; background: linear-gradient(180deg, var(--color-primary-soft) 0, var(--color-page) 420px); overflow: hidden; }
+.pricing-page::before { content: ""; position: absolute; top: -160px; left: 50%; width: 720px; height: 720px; translate: -50% 0;
+  border-radius: 50%; background: radial-gradient(circle, rgb(37 99 235 / .14), transparent 65%); pointer-events: none;
+  animation: drift 16s ease-in-out infinite alternate; }
+.pricing-page .container { position: relative; }
+.pricing-header { display: block; max-width: 680px; margin: 0 auto 48px; text-align: center; }
+.pricing-eyebrow { display: inline-block; padding: 5px 14px; border-radius: 999px; font-size: 12px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--primary); background: #fff; border: 1px solid var(--border-hover); }
+.pricing-header h1 { margin: 16px 0 12px; font-size: clamp(34px, 5vw, 52px); letter-spacing: -.03em; }
+.pricing-header p { margin: 0 auto; color: var(--color-text-muted); font-size: 18px; max-width: 560px; }
+
+.plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 360px)); justify-content: center; gap: 24px; align-items: stretch; }
+.plan-grid > .reveal-fill > * { width: 100%; }
+.plan-card { height: 100%; border-radius: 20px; background: #fff; border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card); transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out); }
+.plan-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+.plan-card .btn { transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur) var(--ease-out); }
+.plan-card .btn-primary { background: var(--gradient-primary); min-height: 48px; }
+.plan-card .btn-primary:hover { box-shadow: 0 10px 24px rgb(37 99 235 / .35); }
+.plan-card .btn svg { transition: transform var(--dur) var(--ease-out); }
+.plan-card .btn:hover svg { transform: translateX(5px); }
+.plan-grid > .reveal-fill:nth-child(2) .plan-card { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary), var(--shadow-lg); }
+
+.pricing-page .state-note { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px;
+  max-width: 640px; margin: 40px auto 0; padding: 14px 20px; text-align: center; font-size: 14px;
+  color: var(--color-text-secondary); background: #fff; border: 1px solid var(--color-border); border-radius: 999px; }
+.pricing-page .state-note svg { color: var(--color-success); flex: none; }
+.pricing-page .state-note a { color: var(--primary); font-weight: 600; }
+
+@media (max-width: 640px) {
+  .pricing-page { padding-block: 40px 56px; }
+  .pricing-page .state-note { border-radius: var(--radius-card); }
+}
+
+/* ===== Toast ===== */
+.toast-stack { position: fixed; top: 20px; right: 20px; z-index: 3000; display: grid; gap: 10px; width: min(380px, calc(100vw - 32px)); }
+.toast { position: relative; display: flex; align-items: center; gap: 10px; padding: 14px 14px 16px; overflow: hidden;
+  background: #fff; border: 1px solid var(--border); border-left-width: 4px; border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(15,23,42,.16); font-size: 14px; font-weight: 500; color: var(--text);
+  animation: toast-in .3s var(--ease) both; }
+.toast__msg { flex: 1; line-height: 1.4; }
+.toast__close { display: grid; place-items: center; width: 24px; height: 24px; border: 0; border-radius: 6px; background: transparent; color: var(--text-muted); }
+.toast__close:hover { background: var(--locked-soft); }
+.toast--success { border-left-color: #16a34a; } .toast--success > svg { color: #16a34a; }
+.toast--error { border-left-color: #dc2626; } .toast--error > svg { color: #dc2626; }
+.toast--info { border-left-color: #2563eb; } .toast--info > svg { color: #2563eb; }
+.toast__bar { position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; background: currentColor; opacity: .25; transform-origin: left; animation: toast-bar linear forwards; }
+.toast--success .toast__bar { color: #16a34a; } .toast--error .toast__bar { color: #dc2626; } .toast--info .toast__bar { color: #2563eb; }
+@keyframes toast-in { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
+@keyframes toast-bar { from { transform: scaleX(1); } to { transform: scaleX(0); } }
